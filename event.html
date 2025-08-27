@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naivas Event RSVP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px;
+      background: #fff;
+      border-bottom: 2px solid #ff8c00;
+    }
+    header img {
+      height: 50px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #ff8c00;
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #006400;
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #004d00;
+    }
+    .consent {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="images/logo.png" alt="Naivas Logo">
+  </header>
+
+  <div class="container">
+    <h1>Event RSVP</h1>
+    <form id="rsvp-form" onsubmit="submitRSVP(event)">
+      
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="company">Company Name</label>
+      <input type="text" id="company" name="company" required>
+
+      <label for="designation">Designation (e.g., CEO, Manager)</label>
+      <input type="text" id="designation" name="designation" required>
+
+      <div class="consent">
+        <label>
+          <input type="checkbox" id="consent" name="consent" required>
+          I consent to my photos/videos being taken during the event and published on Naivas social media platforms.
+        </label>
+      </div>
+
+      <button type="submit">Submit RSVP</button>
+    </form>
+  </div>
+
+  <script>
+    function submitRSVP(event) {
+      event.preventDefault();
+      alert("✅ Thank you! Your RSVP has been recorded. A confirmation email will be sent shortly.");
+      document.getElementById("rsvp-form").reset();
+    }
+  </script>
+</body>
+</html>
