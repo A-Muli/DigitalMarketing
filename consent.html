@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Naivas Consent Form</title>
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <!--Naivas branding style -->
+        <style>
+            body{
+                font-family: Arial, sans-serif;
+                background: #f9f9f9;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+            header{
+                background-color: #f58220;
+                color: white;
+                padding: 15px;
+                text-align: center;
+                font-size: 1.3em;
+                font-weight: bold;
+            }
+            .container{
+                max-width: 800px;
+                margin: 20px auto;
+                background: white;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
+            }
+            h2{
+                color: #008837;
+            }
+            label{
+                display: block;
+                margin-top: 10px;
+            }
+            input[type="text"], input[type="date"] {
+                  width: 100%;
+                  padding: 8px;
+                  margin-top: 5px;
+                  border: 1px solid #ccc;
+                  border-radius: 6px;
+            }
+             textarea {
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 6px;
+                   border: 1px solid #ccc;
+                  margin-top: 10px;
+             }
+            .checkbox-group {
+                  margin: 10px 0;
+            }
+             canvas {
+                  border: 1px solid #ccc;
+                  border-radius: 6px;
+                  margin-top: 10px;
+                  width: 100%;
+                  height: 150px;
+            }
+            .btn {
+                  background-color: #008837; /* Naivas Green */
+                  color: white;
+                  border: none;
+                  padding: 12px 20px;
+                  margin-top: 20px;
+                  font-size: 1em;
+                  border-radius: 8px;
+                  cursor: pointer;
+                }
+            .btn:hover {
+                  background-color: #006838;
+                }
+            .thank-you {
+                  text-align: center;
+                  color: #008837;
+                  font-weight: bold;
+                  display: none;
+                  margin-top: 20px;
+                 }
+        </style>
+    </head>
+    <body>
+
+        <header style="display:flex; align-items:center; justify-content:center; gap:10px;">
+          <img src="images/logo.png" alt="Naivas Logo" style="height:50px;">
+          <span>Naivas Limited – Consent Form</span>
+        </header>
+
+
+            <div class="container">
+            <h2>CONSENT FORM TO PUBLISH CUSTOMER PHOTOS AND VIDEOS</h2>
+              <p> In relation to the business operations carried out by Naivas Limited (Naivas), your personal data (e.g., your photos and images) may be processed for the purposes set out in this consent form. Naivas is a supermarket chain in Kenya which has been in operation for over 30 years.
+             </p>
+
+              <h3>1. Publication Channels (tick as applicable)</h3>
+                <div class="checkbox-group" id="channels-group">
+                    <label><input type="checkbox" onclick="toggleSelectAll('channels-group', this)"> Select All</label>
+                    <label><input type="checkbox" name="channels" value="Intranet"> Company Intranet & Website</label>
+                    <label><input type="checkbox" name="channels" value="Newsletter"> Company Newsletter</label>
+                    <label><input type="checkbox" name="channels" value="Social Media"> Company Social Media</label>
+                </div>
+
+
+              <h3>2. Automated Decision Making</h3>
+                  <div class="checkbox-group">
+                    <label><input type="radio" name="automation" value="No"> We do not use personal data for automated decision making</label>
+                    <label><input type="radio" name="automation" value="Yes"> We do use personal data for automated decision making</label>
+                  </div>
+
+                  <h3>3. Media Type Consent</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="media" value="Photograph"> Photograph</label>
+                    <label><input type="checkbox" name="media" value="Video"> Video</label>
+                  </div>
+
+              <h3>4. Overall Consent</h3>
+                  <div class="checkbox-group">
+                        <label><input type="radio" name="overall" value="Consent"> I consent to publishing my photographs, videos and images.</label>
+                        <label><input type="radio" name="overall" value="NoConsent"> I do not consent to publishing my photographs, videos and images.</label>
+                  </div>
+
+                  <h3>Personal Information</h3>
+                      <label for="name">Full Name:</label>
+                      <input type="text" id="name" required>
+
+                      <label for="date">Date:</label>
+                      <input type="date" id="date">
+
+              <h3>Signature</h3>
+                  <canvas id="signature-pad"></canvas>
+                  <button type="button" class="btn" onclick="clearSignature()">Clear Signature</button>
+
+              <h3>Witness Information</h3>
+                  <label for="witnessName">Witness Name:</label>
+                  <input type="text" id="witnessName">
+
+              <h3>Witness Signature</h3>
+                  <canvas id="witness-signature-pad"></canvas>
+              <button type="button" class="btn" onclick="clearWitnessSignature()">Clear Witness Signature</button>
+
+              <button class="btn" onclick="submitForm()">Submit Consent</button>
+
+              <div id="thankYou" class="thank-you">
+                ✅ Thank you! Your consent form has been submitted.
+              </div>
+        </div>
+
+<!-- Signature Pad JS -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script>
+  // Initialize signature pads
+  const signaturePad = new SignaturePad(document.getElementById('signature-pad'));
+  const witnessSignaturePad = new SignaturePad(document.getElementById('witness-signature-pad'));
+
+  // Auto-fill date
+  document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+  function clearSignature() {
+    signaturePad.clear();
+  }
+  function clearWitnessSignature() {
+    witnessSignaturePad.clear();
+  }
+
+  function submitForm() {
+    const name = document.getElementById('name').value;
+    const date = document.getElementById('date').value;
+    const witnessName = document.getElementById('witnessName').value;
+
+    const channels = [...document.querySelectorAll('input[name="channels"]:checked')].map(c => c.value);
+    const automation = document.querySelector('input[name="automation"]:checked')?.value || '';
+    const media = [...document.querySelectorAll('input[name="media"]:checked')].map(m => m.value);
+    const overall = document.querySelector('input[name="overall"]:checked')?.value || '';
+
+    const signatureData = signaturePad.isEmpty() ? null : signaturePad.toDataURL();
+    const witnessSignatureData = witnessSignaturePad.isEmpty() ? null : witnessSignaturePad.toDataURL();
+
+    // For now: just display confirmation
+    console.log({
+      name, date, channels, automation, media, overall,
+      signatureData, witnessName, witnessSignatureData
+    });
+
+    document.getElementById("thankYou").style.display = "block";
+    window.scrollTo(0,document.body.scrollHeight);
+  }
+  //select all js
+ function toggleSelectAll(groupId, selectAllCheckbox) {
+  const group = document.getElementById(groupId);
+  const checkboxes = group.querySelectorAll('input[type="checkbox"]:not([onclick])');
+  checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+}
+
+
+</script>
+</body>
+
+</html>
